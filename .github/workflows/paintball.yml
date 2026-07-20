@@ -26,6 +26,7 @@ jobs:
           ML_MAX_PAGES: "15"
           MAX_OFFERS_PER_RUN: "10"
           SEND_DELAY_SECONDS: "30"
+          ML_KEYWORDS: "paintball,marcador paintball,mascara paintball,co2 paintball,bola paintball,equipamento paintball,kit paintball,carregador paintball,cilindro co2,calca paintball,luva paintball,colete paintball,gatilho paintball,aguia paintball,spyder paintball,tippmann paintball,dye paintball,planet eclipse"
           SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
           SHOPEE_APP_SECRET: ${{ secrets.SHOPEE_APP_SECRET }}
           SHOPEE_MAX_OFFERS: "10"

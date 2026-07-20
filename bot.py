@@ -121,7 +121,7 @@ def _balance_offers(all_offers: list, max_offers: int) -> list:
     return result
 
 
-def _scrape_ml_task(category, pages, ml_max_pages, ml_target, promotion_type, seen):
+def _scrape_ml_task(category, pages, ml_max_pages, ml_target, promotion_type, seen, ml_keywords=None):
     categories = [c.strip() for c in category.split(",")] if category else [""]
     promo_types = [""] if promotion_type else ["", "lightning"]
     offers = []
@@ -140,6 +140,12 @@ def _scrape_ml_task(category, pages, ml_max_pages, ml_target, promotion_type, se
             except Exception as e:
                 logger.error("Erro ML [%s, %s]: %s", cat_label, pt_label, e)
                 continue
+            if ml_keywords:
+                before = len(result)
+                kw_list = [kw.strip().lower() for kw in ml_keywords.split(",") if kw.strip()]
+                result = [o for o in result if any(kw in o.title.lower() for kw in kw_list)]
+                if before - len(result) > 0:
+                    logger.info("  -> filtradas %d ofertas por palavras-chave", before - len(result))
             for o in result:
                 if o.id not in seen:
                     seen.add(o.id)
@@ -189,6 +195,13 @@ def main():
     promotion_type = os.environ.get("ML_PROMOTION_TYPE", "")
     send_delay = int(os.environ.get("SEND_DELAY_SECONDS", "60"))
 
+    ml_keywords = os.environ.get("ML_KEYWORDS",
+        "paintball,marcador paintball,mascara paintball,co2 paintball,"
+        "bola paintball,equipamento paintball,kit paintball,"
+        "carregador paintball,cilindro co2,calça paintball,luva paintball,"
+        "colete paintball,gatilho paintball,aguia paintball,spyder paintball,"
+        "tippmann paintball,dye paintball,planet eclipse")
+
     sh_app_id = os.environ.get("SHOPEE_APP_ID", "")
     sh_app_secret = os.environ.get("SHOPEE_APP_SECRET", "")
     sh_max_offers = int(os.environ.get("SHOPEE_MAX_OFFERS", "5"))
@@ -215,7 +228,7 @@ def main():
     with ThreadPoolExecutor(max_workers=2) as executor:
         futures = {
             executor.submit(
-                _scrape_ml_task, category, pages, ml_max_pages, ml_target, promotion_type, sent_ids_set.copy()
+                _scrape_ml_task, category, pages, ml_max_pages, ml_target, promotion_type, sent_ids_set.copy(), ml_keywords
             ): "ML",
             executor.submit(
                 _scrape_sh_task, sh_app_id, sh_app_secret, sh_max_offers, sh_keywords, sent_ids_set.copy()
