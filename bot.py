@@ -196,21 +196,45 @@ def main():
     send_delay = int(os.environ.get("SEND_DELAY_SECONDS", "60"))
 
     ml_keywords = os.environ.get("ML_KEYWORDS",
-        "paintball,marcador paintball,mascara paintball,co2 paintball,"
-        "bola paintball,equipamento paintball,kit paintball,"
+        "paintball,marcador paintball,mascara paintball,"
+        "bola paintball,bolinha paintball,equipamento paintball,kit paintball,"
         "carregador paintball,cilindro co2,calça paintball,luva paintball,"
-        "colete paintball,gatilho paintball,aguia paintball,spyder paintball,"
-        "tippmann paintball,dye paintball,planet eclipse")
+        "colete paintball,gatilho paintball,aguia paintball,spyder,"
+        "tippmann,dye,planet eclipse,kingman,azodin,empire,"
+        "municao paintball,hopper,loader,speedball,woodsball,"
+        "hpa,co2 paintball,pod pack,barrel paintball,squeegee,chronograph,"
+        "barrel sock,air tank,dragon paintball,eco field,"
+        "airsoft,replica airsoft,aeg,gbb,m4 airsoft,"
+        "ak47 airsoft,mp5 airsoft,sniper airsoft,pistol airsoft,"
+        "g17,1911 airsoft,dmr,colete tatico,oculos airsoft,"
+        "mascara airsoft,bbs,municao airsoft,"
+        "carregador airsoft,coldre,cqb,milsim,hop up,"
+        "gearbox,bota tatica,balaclava,speed loader,tracer,"
+        "capacete airsoft,green gas,red dot,luneta airsoft,"
+        "lanterna tatica,granada airsoft,bateria lipo,co2 12g,"
+        "cx5,recarga co2,bolter,bolt action,camuflagem tatica")
 
     sh_app_id = os.environ.get("SHOPEE_APP_ID", "")
     sh_app_secret = os.environ.get("SHOPEE_APP_SECRET", "")
     sh_max_offers = int(os.environ.get("SHOPEE_MAX_OFFERS", "5"))
     sh_keywords = os.environ.get("SHOPEE_KEYWORDS",
-        "paintball,marcador paintball,mascara paintball,co2 paintball,"
-        "bola paintball,equipamento paintball,kit paintball,"
+        "paintball,marcador paintball,mascara paintball,"
+        "bola paintball,bolinha paintball,equipamento paintball,kit paintball,"
         "carregador paintball,cilindro co2,calça paintball,luva paintball,"
-        "colete paintball,gatilho paintball,aguia paintball,spyder paintball,"
-        "tippmann paintball,dye paintball,planet eclipse")
+        "colete paintball,gatilho paintball,aguia paintball,spyder,"
+        "tippmann,dye,planet eclipse,kingman,azodin,empire,"
+        "municao paintball,hopper,loader,speedball,woodsball,"
+        "hpa,co2 paintball,pod pack,barrel paintball,squeegee,chronograph,"
+        "barrel sock,air tank,dragon paintball,eco field,"
+        "airsoft,replica airsoft,aeg,gbb,m4 airsoft,"
+        "ak47 airsoft,mp5 airsoft,sniper airsoft,pistol airsoft,"
+        "g17,1911 airsoft,dmr,colete tatico,oculos airsoft,"
+        "mascara airsoft,bbs,municao airsoft,"
+        "carregador airsoft,coldre,cqb,milsim,hop up,"
+        "gearbox,bota tatica,balaclava,speed loader,tracer,"
+        "capacete airsoft,green gas,red dot,luneta airsoft,"
+        "lanterna tatica,granada airsoft,bateria lipo,co2 12g,"
+        "cx5,recarga co2,bolter,bolt action,camuflagem tatica")
 
     ml_target = ml_max_offers if ml_max_offers > 0 else max_offers
     logger.info("Limite de coleta: ML=%d SH=%d (max_offers=%d)",
