@@ -1,0 +1,32 @@
+name: Paintball Bot
+
+on:
+  schedule:
+    - cron: '0 */2 * * *'
+  workflow_dispatch:
+
+jobs:
+  run:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      - name: Instalar dependencias
+        run: pip install -r requirements.txt
+      - name: Executar bot
+        run: python main.py
+        env:
+          TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+          TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+          AFFILIATE_TAG: ${{ secrets.AFFILIATE_TAG }}
+          ML_CATEGORY: "MLB1276"
+          ML_PAGES: "3"
+          ML_MAX_PAGES: "15"
+          MAX_OFFERS_PER_RUN: "10"
+          SEND_DELAY_SECONDS: "30"
+          SHOPEE_APP_ID: ${{ secrets.SHOPEE_APP_ID }}
+          SHOPEE_APP_SECRET: ${{ secrets.SHOPEE_APP_SECRET }}
+          SHOPEE_MAX_OFFERS: "10"
+          SHOPEE_KEYWORDS: "paintball,marcador paintball,mascara paintball,co2 paintball,bola paintball,equipamento paintball,kit paintball,carregador paintball,cilindro co2,calca paintball,luva paintball,colete paintball,gatilho paintball,aguia paintball,spyder paintball,tippmann paintball,dye paintball,planet eclipse"
